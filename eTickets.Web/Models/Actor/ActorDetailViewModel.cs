@@ -1,17 +1,18 @@
 ﻿using eTickets.entities;
 using eTickets.Utilities.Enum;
+using eTickets.Web.Models.MoviesModels;
 using System.ComponentModel.DataAnnotations;
 
-namespace eTickets.Web.Models.ActorsModels
+namespace eTickets.Web.Models.Actor
 {
     public class ActorDetailViewModel
     {
         public ActorDetailViewModel(){
 
-            Movies = new List<Movie>();
+            Movies = new List<MovieViewModel>();
         }
 
-        public List<Movie> Movies { get; set; }
+        public List<MovieViewModel> Movies { get; set; }
         [Key]
         public int Id { get; set; }
         public string ProfilePictureURL { get; set; }

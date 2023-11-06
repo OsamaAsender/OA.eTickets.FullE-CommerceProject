@@ -1,6 +1,7 @@
 ﻿using eTickets.entities;
+using eTickets.Web.Models.MoviesModels;
 
-namespace eTickets.Web.Models.CinemaModels
+namespace eTickets.Web.Models.Cinema
 {
     public class CinemaDetailViewModel
     {
@@ -9,8 +10,8 @@ namespace eTickets.Web.Models.CinemaModels
         public string Address { get; set; }
         public CinemaDetailViewModel()
         {
-            Movies = new List<Movie>();
+            Movies = new List<MovieViewModel>();
         }
-        public List<Movie> Movies { get; set; }
+        public List<MovieViewModel> Movies { get; set; }
     }
 }
