@@ -20,6 +20,6 @@ namespace eTickets.Web.Models.Producer
                 return $"{Firstname + Lastname}";
             }
         }
-        public Gender Sex { get; set; }
+        
     }
 }

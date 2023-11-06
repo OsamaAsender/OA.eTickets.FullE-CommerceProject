@@ -1,6 +1,6 @@
 ﻿using eTickets.entities;
 using eTickets.Utilities.Enum;
-using eTickets.Web.Models.MoviesModels;
+using eTickets.Web.Models.Movie;
 using System.ComponentModel.DataAnnotations;
 
 namespace eTickets.Web.Models.Actor
@@ -9,10 +9,10 @@ namespace eTickets.Web.Models.Actor
     {
         public ActorDetailViewModel(){
 
-            Movies = new List<MovieViewModel>();
+            Movies = new List<MovieListViewModel>();
         }
 
-        public List<MovieViewModel> Movies { get; set; }
+        public List<MovieListViewModel> Movies { get; set; }
         [Key]
         public int Id { get; set; }
         public string ProfilePictureURL { get; set; }
