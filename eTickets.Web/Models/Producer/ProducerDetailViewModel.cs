@@ -1,6 +1,7 @@
 ﻿using eTickets.entities;
 using eTickets.Utilities.Enum;
 using eTickets.Web.Models.Movie;
+using System.ComponentModel.DataAnnotations;
 
 namespace eTickets.Web.Models.Producer
 {
@@ -10,6 +11,8 @@ namespace eTickets.Web.Models.Producer
         {
             Movies = new List<MovieViewModel>();
         }
+        [Key]
+        public int Id { get; set; }
 
         //Movie relationship - List of Objects
         public int MoviesIds { get; set; }

@@ -8,104 +8,93 @@ using Microsoft.EntityFrameworkCore;
 using eTickets.Web.Data;
 using eTickets.entities;
 using AutoMapper;
-using eTickets.Web.Models.Cinema;
+using eTickets.Web.Models.Producer;
 
 namespace eTickets.Web.Controllers
 {
-    #region Data and Const
-    public class CinemasController : Controller
+    #region data and const
+    public class ProducersController : Controller
     {
-
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public CinemasController(ApplicationDbContext context ,IMapper mapper)
+        public ProducersController(ApplicationDbContext context,IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
+
         #endregion
 
         #region Actions
-        
         public async Task<IActionResult> Index()
         {
-            var Cinemas = await _context.Theatres.ToListAsync();  //Brings a list of type (entity)cinemas from the database
 
-            var CinemaVMs = _mapper.Map<List<Cinema>, List<CinemaViewModel>>(Cinemas);   //converts the list of type (entity) to a list of type (viewmodel) 
-
-                return View(CinemaVMs); // returns the view of the model
-
+           var producer = await _context.Producers.ToListAsync();
+            var producerVms = _mapper.Map<List<Producer>, List<ProducerViewModel>>(producer);
+            return View(producerVms);
         }
 
-        
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Theatres == null)
+            if (id == null || _context.Producers == null)
             {
                 return NotFound();
             }
 
-            var cinema = await _context.Theatres.FirstOrDefaultAsync(m => m.Id == id);
+            var producer = await _context.Producers .FirstOrDefaultAsync(m => m.Id == id);
 
-            var cinemaVms = _mapper.Map<Cinema,CinemaDetailViewModel>(cinema);
+            var producerVM = _mapper.Map<Producer,ProducerDetailViewModel>(producer);
 
-            if (cinema == null)
+            if (producer == null)
             {
                 return NotFound();
             }
 
-            return View(cinemaVms);
+            return View(producerVM);
         }
 
-        
         public IActionResult Create()
         {
             return View();
         }
 
-        
-      
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CinemaViewModel cinemaVM)
+        public async Task<IActionResult> Create(ProducerViewModel producerVM)
         {
             if (ModelState.IsValid)
             {
-                var Cinema = _mapper.Map<CinemaViewModel, Cinema>(cinemaVM);
+                var producer = _mapper.Map<ProducerViewModel,Producer>(producerVM);
 
-                _context.Add(cinemaVM);
+                _context.Add(producerVM);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(cinemaVM);
+            return View(producerVM);
         }
 
-       
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Theatres == null)
+            if (id == null || _context.Producers == null)
             {
                 return NotFound();
             }
 
-            var cinema = await _context.Theatres.FindAsync(id);
-
-            var cinemaVms = _mapper.Map<Cinema, CinemaViewModel>(cinema);
-
-            if (cinema == null)
+            var producer = await _context.Producers.FindAsync(id);
+            var producerVM = _mapper.Map<Producer,ProducerViewModel>(producer);
+            if (producer == null)
             {
                 return NotFound();
             }
-            return View(cinemaVms);
+            return View(producerVM);
         }
 
-       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, CinemaViewModel cinemaVms)
+        public async Task<IActionResult> Edit(int id, ProducerViewModel producerVM)
         {
-            if (id != cinemaVms.Id)
+            if (id != producerVM.Id)
             {
                 return NotFound();
             }
@@ -114,13 +103,13 @@ namespace eTickets.Web.Controllers
             {
                 try
                 {
-                    var cinema = _mapper.Map<CinemaViewModel,Cinema>(cinemaVms);
-                    _context.Update(cinema);
+                    var producer = _mapper.Map<ProducerViewModel,Producer>(producerVM);
+                    _context.Update(producer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CinemaExists(cinemaVms.Id))
+                    if (!ProducerExists(producerVM.Id))
                     {
                         return NotFound();
                     }
@@ -131,40 +120,38 @@ namespace eTickets.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(cinemaVms);
+            return View(producerVM);
         }
 
-        // GET: Cinemas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Theatres == null)
+            if (id == null || _context.Producers == null)
             {
                 return NotFound();
             }
 
-            var cinema = await _context.Theatres
+            var producer = await _context.Producers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (cinema == null)
+            if (producer == null)
             {
                 return NotFound();
             }
 
-            return View(cinema);
+            return View(producer);
         }
 
-        // POST: Cinemas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Theatres == null)
+            if (_context.Producers == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Theatres'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Producers'  is null.");
             }
-            var cinema = await _context.Theatres.FindAsync(id);
-            if (cinema != null)
+            var producer = await _context.Producers.FindAsync(id);
+            if (producer != null)
             {
-                _context.Theatres.Remove(cinema);
+                _context.Producers.Remove(producer);
             }
             
             await _context.SaveChangesAsync();
@@ -172,12 +159,11 @@ namespace eTickets.Web.Controllers
         }
         #endregion
 
-        #region Private Funtions
-        private bool CinemaExists(int id)
+        #region Private Functions
+        private bool ProducerExists(int id)
         {
-          return (_context.Theatres?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Producers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-        #endregion
     }
-
+    #endregion
 }
