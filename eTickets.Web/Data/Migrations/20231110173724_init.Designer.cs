@@ -12,7 +12,7 @@ using eTickets.Web.Data;
 namespace eTickets.Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231104071921_init")]
+    [Migration("20231110173724_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,27 +58,13 @@ namespace eTickets.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Kids")
-                        .HasColumnType("int");
-
                     b.Property<string>("Lastname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MaritalStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nationality")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProfilePictureURL")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Sex")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -97,9 +83,8 @@ namespace eTickets.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("Closetime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Logo")
                         .IsRequired()
@@ -108,6 +93,9 @@ namespace eTickets.Web.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Opentime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -184,9 +172,6 @@ namespace eTickets.Web.Data.Migrations
                     b.Property<string>("ProfilePictureURL")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Sex")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

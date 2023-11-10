@@ -20,6 +20,5 @@ namespace eTickets.entities
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string Biography { get; set; }
-        public Gender Sex { get; set; }
     }
 }
